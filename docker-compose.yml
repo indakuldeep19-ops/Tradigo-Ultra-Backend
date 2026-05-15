@@ -1,0 +1,98 @@
+version: "3.9"
+
+# ─────────────────────────────────────────────
+# Tradigo Ultra — Docker Compose
+# Usage:
+#   cp .env.example .env   # fill in secrets
+#   docker compose up -d
+#   docker compose exec api pnpm --filter @workspace/db run push
+#   curl -X POST http://localhost/api/demo/seed   # optional demo data
+# ─────────────────────────────────────────────
+
+services:
+
+  # ── PostgreSQL ──────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       tradigo
+      POSTGRES_USER:     tradigo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tradigo -d tradigo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ── API Server ──────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV:              production
+      PORT:                  8080
+      DATABASE_URL:          postgresql://tradigo:${POSTGRES_PASSWORD}@postgres:5432/tradigo
+      SESSION_SECRET:        ${SESSION_SECRET:?SESSION_SECRET is required}
+      RAZORPAY_KEY_ID:       ${RAZORPAY_KEY_ID:?RAZORPAY_KEY_ID is required}
+      RAZORPAY_KEY_SECRET:   ${RAZORPAY_KEY_SECRET:?RAZORPAY_KEY_SECRET is required}
+      USD_TO_INR:            ${USD_TO_INR:-83.5}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/api/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    networks:
+      - internal
+      - proxy
+
+  # ── Frontend ────────────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - proxy
+
+  # ── Nginx Reverse Proxy ──────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - proxy
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  internal:
+    internal: true
+  proxy:
+    driver: bridge

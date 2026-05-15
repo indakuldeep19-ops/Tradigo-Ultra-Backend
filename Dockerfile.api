@@ -1,0 +1,39 @@
+FROM node:24-alpine AS base
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# ── Install dependencies ──────────────────────
+FROM base AS deps
+WORKDIR /app
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY lib/db/package.json                   ./lib/db/
+COPY lib/api-spec/package.json             ./lib/api-spec/
+COPY lib/api-zod/package.json              ./lib/api-zod/
+COPY lib/api-client-react/package.json     ./lib/api-client-react/
+COPY artifacts/api-server/package.json     ./artifacts/api-server/
+RUN pnpm install --frozen-lockfile --ignore-scripts
+
+# ── Build ─────────────────────────────────────
+FROM deps AS builder
+WORKDIR /app
+COPY lib/       ./lib/
+COPY artifacts/api-server/ ./artifacts/api-server/
+# Build shared libs (tsc composite)
+RUN pnpm run typecheck:libs
+# Build API server bundle
+RUN pnpm --filter @workspace/api-server run build
+
+# ── Production image ──────────────────────────
+FROM node:24-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copy only what is needed to run
+COPY --from=builder /app/artifacts/api-server/dist ./dist
+COPY --from=builder /app/node_modules               ./node_modules
+
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD wget -qO- http://localhost:8080/api/healthz || exit 1
+
+CMD ["node", "--enable-source-maps", "./dist/index.mjs"]
