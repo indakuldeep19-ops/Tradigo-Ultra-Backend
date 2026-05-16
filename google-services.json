@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "63751296073",
+    "project_id": "tradigoultra",
+    "storage_bucket": "tradigoultra.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63751296073:android:5eb10349a0d63db2af9b98",
+        "android_client_info": {
+          "package_name": "com.tradigo.ultra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQkBAqv88MJPakKININGI7auB9iMqdua0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63751296073:android:81a888efe859a932af9b98",
+        "android_client_info": {
+          "package_name": "com.tradigoultra.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQkBAqv88MJPakKININGI7auB9iMqdua0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
