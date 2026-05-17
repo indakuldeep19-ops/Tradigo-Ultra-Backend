@@ -18,12 +18,12 @@ jobs:
       - uses: android-actions/setup-android@v3
 
       - run: chmod +x ./gradlew
-        working-directory: android-twa
+        working-directory: android
 
       - run: ./gradlew bundleRelease
-        working-directory: android-twa
+        working-directory: android
 
       - uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: android-twa/app/build/outputs/bundle/release/*.aab
+          path: android/app/build/outputs/bundle/release/*.aab
