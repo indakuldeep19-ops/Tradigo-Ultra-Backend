@@ -1,3 +1,4 @@
+
 name: Build Android AAB
 
 on:
@@ -21,7 +22,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Make gradlew executable
-        run: chmod +x android/gradlew
+        run: chmod +x gradlew
 
       - name: Build Release AAB
         run: cd android && ./gradlew bundleRelease
