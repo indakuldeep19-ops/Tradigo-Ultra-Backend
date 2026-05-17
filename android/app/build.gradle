@@ -1,15 +1,13 @@
-plugins {
-    id 'com.android.application' version '8.1.1'
-}
+apply plugin: 'com.android.application'
 
 android {
     namespace "com.tradigo.ultra"
-    compileSdk 34
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.tradigo.ultra"
-        minSdk 24
-        targetSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
