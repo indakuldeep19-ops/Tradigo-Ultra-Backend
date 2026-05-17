@@ -1,19 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
-android {
-    compileSdkVersion 34
-
-    defaultConfig {
-        applicationId "com.tradigo.ultra"
-        minSdkVersion 24
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1'
     }
 }
 
-dependencies {
-    implementation platform('com.google.firebase:firebase-bom:33.1.2')
-    implementation 'com.google.firebase:firebase-analytics'
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
