@@ -1,14 +1,32 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+repositories {
+    google()
+    mavenCentral()
+}
+
 android {
-    namespace "com.tradigoultra.app"
+    namespace "com.tradigoultra.new"
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.tradigoultra.app"
+        applicationId "com.tradigoultra.new"
         minSdkVersion 24
         targetSdkVersion 34
 
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
     }
 
     signingConfigs {
@@ -26,4 +44,8 @@ android {
             signingConfig signingConfigs.release
         }
     }
+}
+
+dependencies {
+
 }
