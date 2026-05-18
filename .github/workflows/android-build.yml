@@ -14,22 +14,19 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Make gradlew executable
-        run: chmod +x gradlew
+        run: chmod +x android/gradlew
 
       - name: Build Release AAB
         run: |
-          cd android/app
-          ../../gradlew bundleRelease
+          cd android
+          ./gradlew bundleRelease
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: android/app/build/outputs/bundle/release/*.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
