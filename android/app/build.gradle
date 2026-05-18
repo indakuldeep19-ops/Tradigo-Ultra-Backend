@@ -17,11 +17,11 @@ repositories {
 }
 
 android {
-    namespace "com.tradigoultra.new"
+    namespace "com.tradigoultra.app"
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.tradigoultra.new"
+        applicationId "com.tradigoultra.app"
         minSdkVersion 24
         targetSdkVersion 34
 
@@ -29,19 +29,10 @@ android {
         versionName "1.2"
     }
 
-    signingConfigs {
-        release {
-            storeFile file("tradigo-release-key (1).jks")
-            storePassword "123456"
-            keyAlias "tradigo"
-            keyPassword "123456"
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
