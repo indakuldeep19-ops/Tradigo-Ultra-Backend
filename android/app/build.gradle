@@ -29,19 +29,10 @@ android {
         versionName "1.2"
     }
 
-    signingConfigs {
-        release {
-            storeFile file("tradigo-release-key.jks")
-            storePassword "123456"
-            keyAlias "tradigo"
-            keyPassword "123456"
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             debuggable false
         }
     }
