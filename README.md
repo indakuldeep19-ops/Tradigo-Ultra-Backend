@@ -1,2 +1,3 @@
-# Tradigo-Ultra-Backend
-Backend for Tradigo Ultra trading app
+# Tradivex
+
+Backend for Tradivex trading app
