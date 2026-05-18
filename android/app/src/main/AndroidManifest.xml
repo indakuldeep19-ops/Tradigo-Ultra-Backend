@@ -2,7 +2,7 @@
 
     <application
         android:label="Tradivex"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@android:drawable/sym_def_app_icon">
 
     </application>
 
