@@ -18,13 +18,15 @@ jobs:
           java-version: '17'
 
       - name: Make gradlew executable
-        run: chmod +x gradlew
+        run: chmod +x android/gradlew
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: |
+          cd android
+          ./gradlew bundleRelease
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: app/build/outputs/bundle/release/app-release.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
