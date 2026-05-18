@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:label="Tradigo Ultra"
+        android:label="Tradivex"
         android:icon="@mipmap/ic_launcher">
 
     </application>
