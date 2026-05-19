@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Settings, Shield, ChevronRight, Award, Star, Zap, Crown, Wallet as WalletIcon } from "lucide-react";
+import { Settings, Shield, ChevronRight, Award, Star, Zap, Crown, Wallet as WalletIcon, Gift, BarChart2 } from "lucide-react";
 import { CurrencySelector } from "@/components/currency-selector";
 import Link from "next/link";
 import { useCurrency } from "@/context/currency-context";
@@ -84,7 +84,30 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        {/* Global Currency Settings */}
+        {/* Settings Links */}
+        <div className="space-y-2">
+          <h2 className="text-xs text-muted-foreground uppercase tracking-widest px-1">Social & Growth</h2>
+          <Link href="/creator">
+            <Button variant="ghost" className="w-full justify-between h-14 border-b border-border/30 rounded-none px-2 group">
+              <div className="flex items-center gap-3">
+                <Star className="h-5 w-5 text-primary" />
+                <span className="font-medium">Creator Dashboard</span>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            </Button>
+          </Link>
+          <Link href="/referral">
+            <Button variant="ghost" className="w-full justify-between h-14 border-b border-border/30 rounded-none px-2 group">
+              <div className="flex items-center gap-3">
+                <Gift className="h-5 w-5 text-secondary" />
+                <span className="font-medium">Referral Program</span>
+              </div>
+              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            </Button>
+          </Link>
+        </div>
+
+        {/* Global Settings */}
         <div className="space-y-3">
           <h2 className="text-xs text-muted-foreground uppercase tracking-widest px-1">Global Preferences</h2>
           <Card className="border-border/50">
@@ -100,20 +123,21 @@ export default function ProfilePage() {
 
         {/* Menu Options */}
         <div className="space-y-2">
-          <h2 className="text-xs text-muted-foreground uppercase tracking-widest px-1">Settings & Security</h2>
+          <h2 className="text-xs text-muted-foreground uppercase tracking-widest px-1">Account Settings</h2>
           {[
-            { icon: Award, label: "Achievements & Badges", color: "text-yellow-500" },
-            { icon: Shield, label: "Vault Security (Biometric)", color: "text-primary" },
-            { icon: Star, label: "Creator Dashboard", color: "text-secondary" },
-            { icon: Settings, label: "App Preferences", color: "text-muted-foreground" },
+            { icon: Award, label: "Achievements & Badges", color: "text-yellow-500", href: "/profile" },
+            { icon: Shield, label: "Vault Security (Biometric)", color: "text-primary", href: "/settings" },
+            { icon: Settings, label: "App Preferences", color: "text-muted-foreground", href: "/settings" },
           ].map((item, i) => (
-            <Button key={i} variant="ghost" className="w-full justify-between h-14 border-b border-border/30 rounded-none px-2 group">
-              <div className="flex items-center gap-3">
-                <item.icon className={`h-5 w-5 ${item.color}`} />
-                <span className="font-medium">{item.label}</span>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-            </Button>
+            <Link key={i} href={item.href}>
+              <Button variant="ghost" className="w-full justify-between h-14 border-b border-border/30 rounded-none px-2 group">
+                <div className="flex items-center gap-3">
+                  <item.icon className={`h-5 w-5 ${item.color}`} />
+                  <span className="font-medium">{item.label}</span>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Button>
+            </Link>
           ))}
         </div>
 

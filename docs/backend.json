@@ -28,6 +28,31 @@
         "description": { "type": "string" }
       },
       "required": ["amount", "currency", "type", "category", "status", "timestamp"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "A message sent in a group or private chat room.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "text", "timestamp"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification for alerts, signals, or social activity.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "type": { "type": "string", "enum": ["signal", "social", "payment", "system"] },
+        "read": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "body", "type", "read", "timestamp"]
     }
   },
   "auth": {
@@ -41,6 +66,14 @@
     "/users/{userId}/transactions/{transactionId}": {
       "schema": "#/entities/Transaction",
       "description": "Historical transactions for a user."
+    },
+    "/rooms/{roomId}/messages/{messageId}": {
+      "schema": "#/entities/ChatMessage",
+      "description": "Real-time messages in a specific room."
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": "#/entities/Notification",
+      "description": "User-specific notifications."
     }
   }
 }

@@ -1,14 +1,17 @@
+
 "use client";
 
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mic, MicOff, Trophy, Flame, Users, PlusCircle } from "lucide-react";
+import { Mic, Trophy, Flame, Users, PlusCircle, Headphones } from "lucide-react";
+import Link from "next/link";
 
 const ROOMS = [
   { id: 1, title: "Wall Street Open Call", active: 124, type: "Public", host: "CaptainCrypto" },
   { id: 2, title: "Gold Scalping Room", active: 45, type: "Private", host: "BullTrader" },
+  { id: 3, title: "Crypto Whale Lounge", active: 89, type: "VIP", host: "WhaleHunter" },
 ];
 
 export default function BattlesPage() {
@@ -16,7 +19,7 @@ export default function BattlesPage() {
     <main className="min-h-screen pb-20">
       <header className="p-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-headline">Battle Rooms</h1>
+          <h1 className="text-2xl font-headline">Battle Hub</h1>
           <p className="text-sm text-muted-foreground">Voice chat and trading competitions</p>
         </div>
         <Button variant="ghost" size="icon" className="text-primary">
@@ -53,39 +56,41 @@ export default function BattlesPage() {
         {/* Voice Rooms */}
         <div className="space-y-4">
           <h2 className="text-lg font-headline flex items-center gap-2">
-            <Mic className="h-5 w-5 text-primary" /> Active Rooms
+            <Headphones className="h-5 w-5 text-primary" /> Active Voice Rooms
           </h2>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-4">
             {ROOMS.map((room) => (
-              <Card key={room.id} className="border-border/50 bg-card hover:border-primary/30 transition-all cursor-pointer">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge variant="outline" className={room.type === 'Public' ? "border-green-500/30 text-green-500" : "border-primary/30 text-primary"}>
-                      {room.type}
-                    </Badge>
-                    <div className="flex items-center gap-1 text-muted-foreground text-xs">
-                      <Users className="h-3 w-3" /> {room.active} listening
-                    </div>
-                  </div>
-                  <h3 className="font-bold mb-1">{room.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-4">Hosted by {room.host}</p>
-                  
-                  <div className="flex -space-x-2 mb-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="h-8 w-8 rounded-full border-2 border-card overflow-hidden">
-                        <img src={`https://i.pravatar.cc/100?u=${room.id}${i}`} className="h-full w-full object-cover" />
+              <Link key={room.id} href={`/chat/${room.id}`}>
+                <Card className="border-border/50 bg-card hover:border-primary/30 transition-all cursor-pointer">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="outline" className={room.type === 'Public' ? "border-green-500/30 text-green-500" : "border-primary/30 text-primary"}>
+                        {room.type}
+                      </Badge>
+                      <div className="flex items-center gap-1 text-muted-foreground text-xs">
+                        <Users className="h-3 w-3" /> {room.active} listening
                       </div>
-                    ))}
-                    <div className="h-8 w-8 rounded-full border-2 border-card bg-muted flex items-center justify-center text-[10px] font-bold">
-                      +{room.active - 4}
                     </div>
-                  </div>
+                    <h3 className="font-bold mb-1">{room.title}</h3>
+                    <p className="text-xs text-muted-foreground mb-4">Hosted by {room.host}</p>
+                    
+                    <div className="flex -space-x-2 mb-4">
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="h-8 w-8 rounded-full border-2 border-card overflow-hidden">
+                          <img src={`https://i.pravatar.cc/100?u=${room.id}${i}`} className="h-full w-full object-cover" />
+                        </div>
+                      ))}
+                      <div className="h-8 w-8 rounded-full border-2 border-card bg-muted flex items-center justify-center text-[10px] font-bold">
+                        +{room.active - 4}
+                      </div>
+                    </div>
 
-                  <Button variant="secondary" className="w-full h-8 text-xs gap-2">
-                    <Mic className="h-3 w-3" /> Enter Room
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button variant="secondary" className="w-full h-8 text-xs gap-2">
+                      <Mic className="h-3 w-3" /> Join Room
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

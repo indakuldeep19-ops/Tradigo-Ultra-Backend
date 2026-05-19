@@ -30,12 +30,17 @@ export default function Home() {
           <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Elite Intelligence</p>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <Search className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <Bell className="h-5 w-5" />
-          </Button>
+          <Link href="/market">
+            <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
+              <Search className="h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/notifications">
+            <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10 relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 border border-background" />
+            </Button>
+          </Link>
           <Link href="/profile">
             <div className="h-10 w-10 rounded-full border border-primary/30 p-0.5 bg-background overflow-hidden">
               <img src="https://picsum.photos/seed/trader-me/100/100" alt="Profile" className="h-full w-full object-cover rounded-full" />
@@ -106,7 +111,9 @@ export default function Home() {
               </p>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-xs text-muted-foreground">Sentiment: <span className="text-green-500 font-bold">BULLISH</span></span>
-                <Button variant="link" size="sm" className="text-primary p-0">Read More</Button>
+                <Link href="/signals">
+                  <Button variant="link" size="sm" className="text-primary p-0">Full Analysis</Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
