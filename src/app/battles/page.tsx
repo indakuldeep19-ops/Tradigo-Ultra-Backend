@@ -8,6 +8,7 @@ import { Mic, Trophy, Flame, Users, PlusCircle, Headphones } from "lucide-react"
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 const ROOMS = [
   { id: 1, title: "Wall Street Open Call", active: 124, type: "Public", host: "CaptainCrypto", live: true },
@@ -16,11 +17,22 @@ const ROOMS = [
 ];
 
 export default function BattlesPage() {
+  const [particles, setParticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const newParticles = [...Array(10)].map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setParticles(newParticles);
+  }, []);
+
   return (
     <main className="min-h-screen pb-24 relative">
       <div className="particles">
-        {[...Array(10)].map((_, i) => (
-          <div key={i} className="particle" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
+        {particles.map((p) => (
+          <div key={p.id} className="particle" style={{ left: p.left, top: p.top }} />
         ))}
       </div>
 

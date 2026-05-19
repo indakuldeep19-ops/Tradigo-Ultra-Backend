@@ -10,15 +10,26 @@ import Link from "next/link";
 import { useCurrency } from "@/context/currency-context";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 export default function ProfilePage() {
   const { format } = useCurrency();
+  const [particles, setParticles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const newParticles = [...Array(15)].map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setParticles(newParticles);
+  }, []);
 
   return (
     <main className="min-h-screen pb-24 relative">
       <div className="particles">
-        {[...Array(15)].map((_, i) => (
-          <div key={i} className="particle" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
+        {particles.map((p) => (
+          <div key={p.id} className="particle" style={{ left: p.left, top: p.top }} />
         ))}
       </div>
       

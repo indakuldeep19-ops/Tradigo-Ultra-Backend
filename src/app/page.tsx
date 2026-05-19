@@ -28,8 +28,19 @@ const AI_INSIGHTS = [
 export default function Home() {
   const { format } = useCurrency();
   const [tickerIndex, setTickerIndex] = useState(0);
+  const [particles, setParticles] = useState<any[]>([]);
 
   useEffect(() => {
+    // Generate particles only on the client to avoid hydration mismatch
+    const newParticles = [...Array(20)].map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 5}s`,
+      size: `${Math.random() * 3 + 1}px`,
+    }));
+    setParticles(newParticles);
+
     const timer = setInterval(() => {
       setTickerIndex((prev) => (prev + 1) % TOP_ASSETS.length);
     }, 3000);
@@ -39,14 +50,18 @@ export default function Home() {
   return (
     <main className="min-h-screen pb-24 relative">
       <div className="particles">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className="particle" style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
-          }} />
+        {particles.map((p) => (
+          <div 
+            key={p.id} 
+            className="particle" 
+            style={{
+              left: p.left,
+              top: p.top,
+              animationDelay: p.delay,
+              width: p.size,
+              height: p.size,
+            }} 
+          />
         ))}
       </div>
       
