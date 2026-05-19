@@ -28,7 +28,7 @@ const AI_INSIGHTS = [
 export default function Home() {
   const { format } = useCurrency();
   const [tickerIndex, setTickerIndex] = useState(0);
-  const [particles, setParticles] = useState<any[]>([]);
+  const [particles, setParticles] = useState<{ id: number; left: string; top: string; delay: string; size: string }[]>([]);
 
   useEffect(() => {
     // Generate particles only on the client to avoid hydration mismatch

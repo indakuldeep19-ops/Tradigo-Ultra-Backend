@@ -36,11 +36,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
-  ::selection {
-    background-color: hsla(var(--primary), 0.3);
-    color: white;
-  }
 }
 
 @layer utilities {
@@ -115,6 +110,6 @@
 }
 
 .hologram-orb {
-  background: radial-gradient(circle at center, hsla(var(--primary), 0.8) 0%, hsla(var(--secondary), 0.4) 50%, transparent 100%);
+  background: radial-gradient(circle at center, hsla(46, 65%, 52%, 0.8) 0%, hsla(270, 70%, 60%, 0.4) 50%, transparent 100%);
   filter: blur(8px);
 }
