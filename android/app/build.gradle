@@ -1,15 +1,29 @@
-plugins {
-    id 'com.android.application'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+repositories {
+    google()
+    mavenCentral()
 }
 
 android {
-    namespace 'com.tradivex.app'
-    compileSdk 34
+    namespace "com.tradivex.app"
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.tradivex.app"
-        minSdk 24
-        targetSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
@@ -20,11 +34,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-}
-
-repositories {
-    google()
-    mavenCentral()
 }
 
 dependencies {
