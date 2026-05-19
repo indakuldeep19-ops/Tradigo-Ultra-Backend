@@ -25,6 +25,7 @@ export async function verifyPayment(
   razorpay_payment_id: string,
   razorpay_signature: string
 ) {
+  // Use provided production secret
   const secret = process.env.RAZORPAY_KEY_SECRET || 'KeW9ksE4nKOYiS02pHk497M7';
   const body = razorpay_order_id + '|' + razorpay_payment_id;
 

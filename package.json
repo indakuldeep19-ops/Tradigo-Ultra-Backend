@@ -1,7 +1,7 @@
 
 {
-  "name": "nextn",
-  "version": "0.1.0",
+  "name": "tradigo-prime",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 9002",
@@ -11,9 +11,11 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "static": "next build && next export",
+    "static": "next build",
     "cap:sync": "npx cap sync",
-    "cap:open": "npx cap open android"
+    "cap:open": "npx cap open android",
+    "android:build": "npm run build && npx cap sync && cd android && ./gradlew assembleRelease",
+    "android:bundle": "npm run build && npx cap sync && cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

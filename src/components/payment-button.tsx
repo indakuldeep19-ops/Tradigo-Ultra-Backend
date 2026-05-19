@@ -27,26 +27,24 @@ export function PaymentButton({
 }: PaymentButtonProps) {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { selectedCurrency } = useCurrency();
 
   const handlePayment = async () => {
     setLoading(true);
     try {
-      // 1. Create order on server
       const res = await createRazorpayOrder(amount, currency);
       if (!res.success || !res.order) {
         throw new Error(res.error || 'Failed to initialize payment');
       }
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_placeholder',
+        // Use provided production key
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_Sm9ukMcAM7nPBD',
         amount: res.order.amount,
         currency: res.order.currency,
         name: 'Tradigo Prime',
         description: label,
         order_id: res.order.id,
         handler: async function (response: any) {
-          // 2. Verify payment on server
           const verification = await verifyPayment(
             response.razorpay_order_id,
             response.razorpay_payment_id,
@@ -72,7 +70,7 @@ export function PaymentButton({
           email: 'trader@tradigo.prime',
         },
         theme: {
-          color: '#D4AF37', // Tradigo Prime Gold
+          color: '#D4AF37',
         },
       };
 
