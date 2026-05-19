@@ -2,11 +2,12 @@
 
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MessageCircle, Share2, Play, Users, Sparkles, Plus, MoreHorizontal, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const REELS = [
   { id: 1, user: "TraderJane", title: "Institutional Order Flow Secrets revealed. ⚡ #TradingTips #Alpha", likes: "12.4k", comments: "450", image: "https://picsum.photos/seed/reel1/400/700", verified: true, role: "Elite Scalper" },
@@ -63,7 +64,7 @@ export default function SocialPage() {
             {/* Interactive Progress Bar */}
             <div className="absolute top-0 left-0 right-0 h-1 z-50 flex gap-1 px-1 pt-2">
                {REELS.map((_, i) => (
-                 <div key={i} className={`h-full flex-1 rounded-full transition-all duration-500 ${i === index ? 'bg-primary' : 'bg-white/20'}`} />
+                 <div key={i} className={cn("h-full flex-1 rounded-full transition-all duration-500", i === index ? 'bg-primary' : 'bg-white/20')} />
                ))}
             </div>
 
