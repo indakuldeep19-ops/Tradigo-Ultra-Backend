@@ -4,8 +4,8 @@ import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MessageCircle, Share2, Play, Users, Sparkles, Plus, MoreHorizontal, Zap } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Heart, MessageCircle, Share2, Play, Users, Sparkles, Plus, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -56,6 +56,7 @@ export default function SocialPage() {
               src={reel.image} 
               className="absolute inset-0 h-full w-full object-cover" 
               alt="Reel Content" 
+              data-ai-hint="vertical video"
             />
             
             {/* Glossy Overlay */}
@@ -161,7 +162,7 @@ export default function SocialPage() {
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                 className="h-14 w-14 rounded-2xl border-4 border-white/20 p-1 glass"
               >
-                 <img src="https://picsum.photos/seed/music/100/100" className="h-full w-full object-cover rounded-xl" />
+                 <img src="https://picsum.photos/seed/music/100/100" className="h-full w-full object-cover rounded-xl" alt="music" />
               </motion.div>
             </div>
           </div>
