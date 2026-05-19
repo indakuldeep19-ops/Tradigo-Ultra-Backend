@@ -2,7 +2,7 @@
 
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MessageCircle, Share2, Play, Users, Sparkles, Plus, MoreHorizontal, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
