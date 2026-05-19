@@ -7,10 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: android
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,17 +14,18 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
       - name: Make gradlew executable
-        run: chmod +x gradlew
+        run: echo "skip"
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: gradle bundleRelease
+        working-directory: android/app
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: android/app/build/outputs/bundle/release/app-release.aab
+          path: android/app/build/outputs/**/*.aab
