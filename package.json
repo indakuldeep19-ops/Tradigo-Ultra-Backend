@@ -1,3 +1,4 @@
+
 {
   "name": "tradigo-prime",
   "version": "1.0.0",
@@ -13,8 +14,8 @@
     "static": "next build",
     "cap:sync": "npx cap sync",
     "cap:open": "npx cap open android",
-    "android:build": "next build && npx cap sync && cd android && ./gradlew assembleRelease",
-    "android:bundle": "next build && npx cap sync && cd android && ./gradlew bundleRelease"
+    "android:build": "rm -rf out && next build && npx cap sync && cd android && ./gradlew assembleRelease",
+    "android:bundle": "rm -rf out && next build && npx cap sync && cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",
