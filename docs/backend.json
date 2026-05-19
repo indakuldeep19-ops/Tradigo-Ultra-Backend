@@ -1,0 +1,46 @@
+
+{
+  "entities": {
+    "UserWallet": {
+      "title": "User Wallet",
+      "description": "Stores user balance and currency preferences.",
+      "type": "object",
+      "properties": {
+        "balance": { "type": "number" },
+        "currency": { "type": "string" },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      },
+      "required": ["balance", "currency"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Record of a payment or internal transfer.",
+      "type": "object",
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "type": { "type": "string", "enum": ["credit", "debit"] },
+        "category": { "type": "string", "enum": ["wallet_recharge", "subscription", "marketplace", "payout"] },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"] },
+        "razorpayOrderId": { "type": "string" },
+        "razorpayPaymentId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "description": { "type": "string" }
+      },
+      "required": ["amount", "currency", "type", "category", "status", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "password"]
+  },
+  "firestore": {
+    "/users/{userId}/wallet": {
+      "schema": "#/entities/UserWallet",
+      "description": "The financial wallet of a user."
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "#/entities/Transaction",
+      "description": "Historical transactions for a user."
+    }
+  }
+}

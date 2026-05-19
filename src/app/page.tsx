@@ -9,6 +9,7 @@ import { TrendingUp, TrendingDown, Crown, Search, Bell } from "lucide-react";
 import Link from "next/link";
 import { useCurrency } from "@/context/currency-context";
 import { cn } from "@/lib/utils";
+import { PaymentButton } from "@/components/payment-button";
 
 const TOP_ASSETS = [
   { pair: "BTC/USDT", price: 64231.50, change: "+2.4%", trend: "up" },
@@ -35,9 +36,11 @@ export default function Home() {
           <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
             <Bell className="h-5 w-5" />
           </Button>
-          <div className="h-10 w-10 rounded-full border border-primary/30 p-0.5 bg-background overflow-hidden">
-            <img src="https://picsum.photos/seed/trader-me/100/100" alt="Profile" className="h-full w-full object-cover rounded-full" />
-          </div>
+          <Link href="/profile">
+            <div className="h-10 w-10 rounded-full border border-primary/30 p-0.5 bg-background overflow-hidden">
+              <img src="https://picsum.photos/seed/trader-me/100/100" alt="Profile" className="h-full w-full object-cover rounded-full" />
+            </div>
+          </Link>
         </div>
       </header>
 
@@ -52,9 +55,12 @@ export default function Home() {
             <p className="text-sm text-muted-foreground">Unlock 99% accuracy AI signals.</p>
           </CardHeader>
           <CardContent>
-            <Button className="w-full bg-primary text-primary-foreground font-semibold shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:scale-105 transition-transform">
-              Upgrade to Prime
-            </Button>
+            <PaymentButton 
+              amount={199} 
+              currency="USD" 
+              label="Upgrade to Prime for $199" 
+              className="w-full bg-primary text-primary-foreground font-semibold shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:scale-105 transition-transform"
+            />
           </CardContent>
         </Card>
 

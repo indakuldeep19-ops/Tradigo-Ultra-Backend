@@ -6,10 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Settings, Shield, ChevronRight, Award, Star, Zap, Crown } from "lucide-react";
+import { Settings, Shield, ChevronRight, Award, Star, Zap, Crown, Wallet as WalletIcon } from "lucide-react";
 import { CurrencySelector } from "@/components/currency-selector";
+import Link from "next/link";
+import { useCurrency } from "@/context/currency-context";
 
 export default function ProfilePage() {
+  const { format } = useCurrency();
+
   return (
     <main className="min-h-screen pb-20">
       {/* Profile Header */}
@@ -31,6 +35,24 @@ export default function ProfilePage() {
       </div>
 
       <div className="px-6 space-y-6">
+        {/* Wallet Brief */}
+        <Link href="/profile/wallet">
+          <Card className="border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-full bg-primary/20 text-primary">
+                  <WalletIcon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Available Balance</p>
+                  <p className="text-lg font-bold">{format(1240.50, 'USD')}</p>
+                </div>
+              </div>
+              <ChevronRight className="h-5 w-5 text-primary" />
+            </CardContent>
+          </Card>
+        </Link>
+
         {/* Progress & Stats */}
         <Card className="border-border/50">
           <CardContent className="p-4 space-y-4">
