@@ -17,7 +17,7 @@
     "android:clean": "cd android && ./gradlew clean",
     "android:build": "npm run build && npx cap sync && cd android && ./gradlew assembleRelease --no-daemon",
     "android:bundle": "npm run build && npx cap sync && cd android && ./gradlew bundleRelease --no-daemon",
-    "android:mega-fix": "killall -9 java 2>/dev/null; killall -9 nix 2>/dev/null; rm -f .next/export-detail.json; rm -rf .next; rm -rf android/app/build; rm -rf android/.gradle; mkdir -p $HOME/android-sdk; export ANDROID_HOME=$HOME/android-sdk; export ANDROID_SDK_ROOT=$HOME/android-sdk; yes | sdkmanager --licenses || true; sdkmanager \"platform-tools\" \"platforms;android-35\" \"build-tools;34.0.0\" || true; npm run build && npx cap sync && cd android && ./gradlew assembleRelease --no-daemon",
+    "android:mega-fix": "killall -9 java 2>/dev/null; killall -9 nix 2>/dev/null; rm -f .next/export-detail.json; rm -rf .next; rm -rf android/app/build; rm -rf android/.gradle; mkdir -p $HOME/android-sdk; export ANDROID_HOME=$HOME/android-sdk; export ANDROID_SDK_ROOT=$HOME/android-sdk; (yes | sdkmanager --licenses || true); sdkmanager \"platform-tools\" \"platforms;android-35\" \"build-tools;34.0.0\" || true; npm run build && npx cap sync && cd android && ./gradlew assembleRelease --no-daemon",
     "android:force-build": "rm -rf .next android/app/build android/.gradle && npm run android:build"
   },
   "dependencies": {
