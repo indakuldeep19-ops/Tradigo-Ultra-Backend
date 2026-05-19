@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -8,6 +7,8 @@ import {
   DocumentData, 
   QuerySnapshot 
 } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export function useCollection<T = DocumentData>(query: Query<T> | null) {
   const [data, setData] = useState<T[] | null>(null);
@@ -23,12 +24,17 @@ export function useCollection<T = DocumentData>(query: Query<T> | null) {
     const unsubscribe = onSnapshot(
       query,
       (snapshot: QuerySnapshot<T>) => {
-        const items = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        const items = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as T & { id: string }));
         setData(items);
         setLoading(false);
       },
-      (err) => {
-        setError(err);
+      async (serverError) => {
+        const permissionError = new FirestorePermissionError({
+          path: (query as any)._query?.path?.toString() || 'unknown',
+          operation: 'list',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        setError(serverError);
         setLoading(false);
       }
     );
