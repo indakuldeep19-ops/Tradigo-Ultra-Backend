@@ -1,3 +1,4 @@
+
 ext {
     minSdkVersion = 22
     compileSdkVersion = 35
@@ -8,8 +9,7 @@ ext {
     androidxCoreVersion = '1.13.1'
     androidxFragmentVersion = '1.8.3'
     junitVersion = '4.13.2'
-    androidxTestJunitVersion = '1.2.1'
+    androidxJunitVersion = '1.2.1'
     androidxEspressoCoreVersion = '3.6.1'
     cordovaAndroidVersion = '10.1.1'
-    buildToolsVersion = '34.0.0'
 }
