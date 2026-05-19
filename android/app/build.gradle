@@ -1,20 +1,4 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.1'
-    }
-}
-
 apply plugin: 'com.android.application'
-
-repositories {
-    google()
-    mavenCentral()
-}
 
 android {
     namespace "com.tradivex.app"
@@ -31,9 +15,14 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            debuggable false
         }
     }
+}
+
+repositories {
+    google()
+    mavenCentral()
 }
 
 dependencies {
