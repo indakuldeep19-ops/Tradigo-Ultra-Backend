@@ -2,6 +2,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { CurrencyProvider } from '@/context/currency-context';
+import { FirebaseProvider } from '@/firebase/provider';
 import Script from 'next/script';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -23,10 +24,12 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-primary/20 bg-background text-foreground overflow-x-hidden">
-        <CurrencyProvider>
-          {children}
-          <Toaster />
-        </CurrencyProvider>
+        <FirebaseProvider>
+          <CurrencyProvider>
+            {children}
+            <Toaster />
+          </CurrencyProvider>
+        </FirebaseProvider>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>
     </html>
