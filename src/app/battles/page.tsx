@@ -4,7 +4,7 @@ import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mic, Trophy, Flame, Users, PlusCircle, Headphones, Sparkles, TrendingUp, Zap } from "lucide-react";
+import { Mic, Trophy, Flame, Users, PlusCircle, Headphones } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -123,7 +123,7 @@ export default function BattlesPage() {
                       
                       <div className="flex gap-5 items-center">
                          <div className="h-16 w-16 rounded-[1.5rem] bg-gradient-to-tr from-primary/20 to-secondary/20 flex items-center justify-center relative overflow-hidden border border-white/5">
-                            <Headphones className="h-8 w-8 text-primary/60 group-hover:scale-110 transition-transform" />
+                            <Headphones className="h-8 w-8 text-primary/60" />
                             <motion.div 
                               animate={{ y: [0, -10, 0] }}
                               transition={{ repeat: Infinity, duration: 2 }}
@@ -141,7 +141,7 @@ export default function BattlesPage() {
                                   whileHover={{ y: -5, zIndex: 10 }}
                                   className="h-10 w-10 rounded-2xl border-4 border-background overflow-hidden glass shadow-xl"
                                 >
-                                  <img src={`https://i.pravatar.cc/100?u=${room.id}${idx}`} className="h-full w-full object-cover" />
+                                  <img src={`https://i.pravatar.cc/100?u=${room.id}${idx}`} className="h-full w-full object-cover" alt="avatar" />
                                 </motion.div>
                               ))}
                               <div className="h-10 w-10 rounded-2xl border-4 border-background bg-muted/40 backdrop-blur-md flex items-center justify-center text-[10px] font-black text-white">

@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
 export type CurrencyCode = 'USD' | 'EUR' | 'GBP' | 'INR' | 'AED' | 'BTC' | 'USDT';
 
@@ -33,38 +32,47 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(SUPPORTED_CURRENCIES.USD);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     // Automatic country/currency detection based on locale
     const locale = navigator.language;
-    if (locale.includes('IN')) setSelectedCurrency(SUPPORTED_CURRENCIES.INR);
-    else if (locale.includes('GB')) setSelectedCurrency(SUPPORTED_CURRENCIES.GBP);
-    else if (locale.includes('AE')) setSelectedCurrency(SUPPORTED_CURRENCIES.AED);
+    let initialCurrency = SUPPORTED_CURRENCIES.USD;
+
+    if (locale.includes('IN')) initialCurrency = SUPPORTED_CURRENCIES.INR;
+    else if (locale.includes('GB')) initialCurrency = SUPPORTED_CURRENCIES.GBP;
+    else if (locale.includes('AE')) initialCurrency = SUPPORTED_CURRENCIES.AED;
     else if (locale.includes('EU') || ['de', 'fr', 'it', 'es'].some(l => locale.startsWith(l))) 
-      setSelectedCurrency(SUPPORTED_CURRENCIES.EUR);
+      initialCurrency = SUPPORTED_CURRENCIES.EUR;
     
     // Check local storage for preference
     const saved = localStorage.getItem('user-currency') as CurrencyCode;
     if (saved && SUPPORTED_CURRENCIES[saved]) {
-      setSelectedCurrency(SUPPORTED_CURRENCIES[saved]);
+      initialCurrency = SUPPORTED_CURRENCIES[saved];
     }
+
+    setSelectedCurrency(initialCurrency);
+    setIsHydrated(true);
   }, []);
 
-  const setCurrency = (code: CurrencyCode) => {
+  const setCurrency = useCallback((code: CurrencyCode) => {
     const currency = SUPPORTED_CURRENCIES[code];
     if (currency) {
       setSelectedCurrency(currency);
       localStorage.setItem('user-currency', code);
     }
-  };
+  }, []);
 
-  const convert = (amount: number, from: CurrencyCode = 'USD'): number => {
+  const convert = useCallback((amount: number, from: CurrencyCode = 'USD'): number => {
     const fromRate = SUPPORTED_CURRENCIES[from].rate;
     const toRate = selectedCurrency.rate;
     return (amount / fromRate) * toRate;
-  };
+  }, [selectedCurrency]);
 
-  const format = (amount: number, code?: CurrencyCode): string => {
+  const format = useCallback((amount: number, code?: CurrencyCode): string => {
+    // Prevent hydration mismatch by using a stable state until hydrated
+    if (!isHydrated && !code) return `...`;
+
     const currency = code ? SUPPORTED_CURRENCIES[code] : selectedCurrency;
     const converted = code ? amount : convert(amount);
     
@@ -77,7 +85,7 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
       currency: currency.code === 'USDT' ? 'USD' : currency.code,
       currencyDisplay: 'narrowSymbol',
     }).format(converted).replace('US$', '₮').replace('$', currency.symbol);
-  };
+  }, [selectedCurrency, convert, isHydrated]);
 
   return (
     <CurrencyContext.Provider value={{ selectedCurrency, setCurrency, convert, format }}>

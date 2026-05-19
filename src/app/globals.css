@@ -37,10 +37,14 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  
+  /* Modern scrollbar hiding */
+  * {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  
+
   *::-webkit-scrollbar {
     display: none;
     width: 0;
@@ -49,7 +53,7 @@
 
   ::selection {
     background-color: hsla(var(--primary), 0.3);
-    color: hsl(var(--primary-foreground));
+    color: hsl(var(--foreground));
   }
 
   body {
@@ -156,7 +160,6 @@
   100% { background-position: -200% 0; }
 }
 
-/* Floating Particles (CSS only fallback) */
 .particles {
   position: fixed;
   top: 0;
