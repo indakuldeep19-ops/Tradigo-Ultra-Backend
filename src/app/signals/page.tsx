@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -6,16 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Zap, Target, ShieldAlert, TrendingUp, Filter } from "lucide-react";
-import { getAiBuySellSignals } from "@/ai/flows/ai-buy-sell-signals-flow";
+import { Zap, Target, ShieldAlert, Filter } from "lucide-react";
+import { useCurrency } from "@/context/currency-context";
 
 const MOCK_SIGNALS = [
-  { pair: "GBP/JPY", type: "SELL", entry: "192.540", target: "190.200", stop: "193.100", confidence: 88 },
-  { pair: "XAU/USD", type: "BUY", entry: "2321.40", target: "2350.00", stop: "2310.00", confidence: 94 },
+  { pair: "GBP/JPY", type: "SELL", entry: 192.540, target: 190.200, stop: 193.100, confidence: 88, base: 'USD' as const },
+  { pair: "XAU/USD", type: "BUY", entry: 2321.40, target: 2350.00, stop: 2310.00, confidence: 94, base: 'USD' as const },
 ];
 
 export default function SignalsPage() {
-  const [loading, setLoading] = useState(false);
+  const { format } = useCurrency();
 
   return (
     <main className="min-h-screen pb-20">
@@ -64,15 +65,15 @@ export default function SignalsPage() {
                   <div className="grid grid-cols-3 gap-4">
                     <div className="space-y-1">
                       <span className="text-[10px] uppercase text-muted-foreground">Entry</span>
-                      <p className="font-bold text-sm">{sig.entry}</p>
+                      <p className="font-bold text-sm">{format(sig.entry, sig.base)}</p>
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] uppercase text-muted-foreground flex items-center"><Target className="h-2 w-2 mr-1" /> Target</span>
-                      <p className="font-bold text-sm text-primary">{sig.target}</p>
+                      <p className="font-bold text-sm text-primary">{format(sig.target, sig.base)}</p>
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] uppercase text-muted-foreground flex items-center"><ShieldAlert className="h-2 w-2 mr-1" /> Stop Loss</span>
-                      <p className="font-bold text-sm text-secondary">{sig.stop}</p>
+                      <p className="font-bold text-sm text-secondary">{format(sig.stop, sig.base)}</p>
                     </div>
                   </div>
 
@@ -100,7 +101,7 @@ export default function SignalsPage() {
                   <div className="h-40 w-full bg-muted relative">
                     <img src={`https://picsum.photos/seed/pack${item}/600/400`} className="h-full w-full object-cover opacity-60" alt="Strategy Pack" />
                     <div className="absolute top-2 right-2">
-                      <Badge className="bg-primary text-primary-foreground">$49.99</Badge>
+                      <Badge className="bg-primary text-primary-foreground">{format(49.99, 'USD')}</Badge>
                     </div>
                   </div>
                   <CardContent className="p-4 space-y-2">

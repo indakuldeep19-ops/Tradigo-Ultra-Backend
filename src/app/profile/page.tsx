@@ -1,3 +1,4 @@
+
 "use client";
 
 import { MobileNav } from "@/components/mobile-nav";
@@ -6,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Settings, Shield, ChevronRight, Award, Star, Zap, Crown } from "lucide-react";
+import { CurrencySelector } from "@/components/currency-selector";
 
 export default function ProfilePage() {
   return (
@@ -59,6 +61,20 @@ export default function ProfilePage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Global Currency Settings */}
+        <div className="space-y-3">
+          <h2 className="text-xs text-muted-foreground uppercase tracking-widest px-1">Global Preferences</h2>
+          <Card className="border-border/50">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium">App Currency</p>
+                <p className="text-[10px] text-muted-foreground">Prices will update automatically</p>
+              </div>
+              <CurrencySelector />
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Menu Options */}
         <div className="space-y-2">

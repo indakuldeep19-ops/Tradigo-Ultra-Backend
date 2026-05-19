@@ -1,18 +1,25 @@
+
+"use client";
+
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Crown, Search, Bell } from "lucide-react";
 import Link from "next/link";
+import { useCurrency } from "@/context/currency-context";
+import { cn } from "@/lib/utils";
 
 const TOP_ASSETS = [
-  { pair: "BTC/USDT", price: "64,231.50", change: "+2.4%", trend: "up" },
-  { pair: "ETH/USDT", price: "3,452.12", change: "-0.8%", trend: "down" },
-  { pair: "EUR/USD", price: "1.0842", change: "+0.1%", trend: "up" },
-  { pair: "GOLD", price: "2,324.50", change: "+1.2%", trend: "up" },
+  { pair: "BTC/USDT", price: 64231.50, change: "+2.4%", trend: "up" },
+  { pair: "ETH/USDT", price: 3452.12, change: "-0.8%", trend: "down" },
+  { pair: "EUR/USD", price: 1.0842, change: "+0.1%", trend: "up" },
+  { pair: "GOLD", price: 2324.50, change: "+1.2%", trend: "up" },
 ];
 
 export default function Home() {
+  const { format } = useCurrency();
+
   return (
     <main className="min-h-screen pb-20">
       {/* Header */}
@@ -71,7 +78,7 @@ export default function Home() {
                       {asset.change}
                     </Badge>
                   </div>
-                  <div className="text-lg font-bold">${asset.price}</div>
+                  <div className="text-lg font-bold">{format(asset.price, 'USD')}</div>
                   <div className="h-10 w-full gold-shimmer rounded bg-muted/20" />
                 </CardContent>
               </Card>
@@ -103,8 +110,4 @@ export default function Home() {
       <MobileNav />
     </main>
   );
-}
-
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ');
 }
