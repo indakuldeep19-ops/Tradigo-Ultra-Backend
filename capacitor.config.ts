@@ -4,7 +4,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.tradigo.prime',
   appName: 'Tradigo Prime',
-  webDir: 'out',
+  webDir: 'out', // Standard output directory for Next.js static export
   server: {
     androidScheme: 'https'
   },
