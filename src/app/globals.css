@@ -25,40 +25,27 @@
     --input: 240 3.7% 15.9%;
     --ring: 46 65% 52%;
     --radius: 1.25rem;
-
-    /* Futuristic Neon Palette */
-    --neon-purple: 280 100% 70%;
-    --neon-blue: 200 100% 60%;
-    --neon-pink: 330 100% 65%;
-    --neon-cyan: 180 100% 50%;
-    --neon-gold: 46 65% 52%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   
-  /* Modern scrollbar hiding */
-  html, body {
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d12 100%);
+    overflow-x: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
 
-  ::-webkit-scrollbar {
+  body::-webkit-scrollbar {
     display: none;
   }
 
   ::selection {
     background-color: hsla(var(--primary), 0.3);
     color: hsl(var(--foreground));
-  }
-
-  body {
-    @apply bg-background text-foreground font-body antialiased;
-    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d12 100%);
-    overflow-x: hidden;
   }
 }
 
@@ -115,10 +102,6 @@
 
 .neon-glow-gold {
   box-shadow: 0 0 20px -5px hsla(var(--primary), 0.5);
-}
-
-.neon-border-pulse {
-  animation: pulse-neon 2s infinite ease-in-out;
 }
 
 .hologram-orb {
