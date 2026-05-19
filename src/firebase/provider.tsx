@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useMemo } from 'react';
 import { initializeFirebase } from './index';
 import { Auth } from 'firebase/auth';
 import { Firestore } from 'firebase/firestore';
@@ -16,7 +15,8 @@ interface FirebaseContextType {
 const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined);
 
 export function FirebaseProvider({ children }: { children: ReactNode }) {
-  const services = initializeFirebase();
+  // Memoize services to prevent redundant re-initialization during dev reloads
+  const services = useMemo(() => initializeFirebase(), []);
 
   return (
     <FirebaseContext.Provider value={services}>
