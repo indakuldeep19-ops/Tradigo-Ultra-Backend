@@ -1,4 +1,3 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { CurrencyProvider } from '@/context/currency-context';
@@ -23,7 +22,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased selection:bg-primary/20 bg-[#0d0d12] text-foreground overflow-x-hidden min-h-screen">
+      <body className="font-body antialiased bg-[#0d0d12] text-foreground overflow-x-hidden min-h-screen">
         <FirebaseProvider>
           <CurrencyProvider>
             {children}

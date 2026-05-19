@@ -47,8 +47,13 @@
     height: 0;
   }
 
+  ::selection {
+    background-color: hsla(var(--primary), 0.3);
+    color: hsl(var(--primary-foreground));
+  }
+
   body {
-    @apply bg-background text-foreground font-body selection:bg-primary/30 antialiased;
+    @apply bg-background text-foreground font-body antialiased;
     background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d12 100%);
     overflow-x: hidden;
   }

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Mic, Trophy, Flame, Users, PlusCircle, Headphones, Sparkles, TrendingUp, Zap } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const ROOMS = [
   { id: 1, title: "Wall Street Open Call", active: 124, type: "Public", host: "CaptainCrypto", live: true },

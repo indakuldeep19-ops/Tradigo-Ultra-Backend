@@ -1,10 +1,10 @@
-
 "use client";
 
 import { use } from "react";
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { PlayCircle, Clock, Award, Users, ChevronLeft, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useCurrency } from "@/context/currency-context";
