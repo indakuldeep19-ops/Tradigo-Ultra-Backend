@@ -7,6 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: android
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,12 +22,10 @@ jobs:
           java-version: '17'
 
       - name: Make gradlew executable
-        run: chmod +x android/gradlew
+        run: chmod +x gradlew
 
       - name: Build Release AAB
-        run: |
-          cd android
-          ./gradlew bundleRelease
+        run: ./gradlew bundleRelease
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
