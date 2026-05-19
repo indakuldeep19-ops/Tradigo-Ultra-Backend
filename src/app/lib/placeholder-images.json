@@ -1,0 +1,28 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-trading",
+      "description": "Premium trading setup",
+      "imageUrl": "https://picsum.photos/seed/tradigo1/1200/800",
+      "imageHint": "luxury trading"
+    },
+    {
+      "id": "avatar-pro",
+      "description": "Professional trader avatar",
+      "imageUrl": "https://picsum.photos/seed/trader2/200/200",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "course-thumb",
+      "description": "Trading course thumbnail",
+      "imageUrl": "https://picsum.photos/seed/course3/600/400",
+      "imageHint": "finance education"
+    },
+    {
+      "id": "reel-video",
+      "description": "Trading strategy reel",
+      "imageUrl": "https://picsum.photos/seed/reel4/400/800",
+      "imageHint": "vertical video"
+    }
+  ]
+}
