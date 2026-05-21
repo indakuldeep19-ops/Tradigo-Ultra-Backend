@@ -1,1 +1,3 @@
-# Firebase Studio
+# Tradivex
+
+Backend for Tradivex trading app
