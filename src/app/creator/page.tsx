@@ -70,7 +70,7 @@ export default function CreatorDashboardPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-headline">Your Published Assets</h2>
-            <Link href="/market" className="text-xs text-primary font-bold">View Market</Link>
+            <Link href="/market"><span className="text-xs text-primary font-bold">View Market</span></Link>
           </div>
           <div className="space-y-3">
             {[

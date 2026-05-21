@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Wallet, ArrowUpRight, ArrowDownLeft, History, Plus, Coins } from "lucide-react";
 import { useCurrency } from "@/context/currency-context";
-import { PaymentButton } from "@/components/payment-button";
+import PaymentButton from "@/components/payment-button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const MOCK_HISTORY = [
@@ -84,7 +84,7 @@ export default function WalletPage() {
                     amount={pack.price} 
                     currency="USD" 
                     label={`Buy for ${format(pack.price, 'USD')}`}
-                    variant="ghost"
+                    variant="default"
                     className="w-full text-xs h-8 p-0 text-primary hover:bg-primary/10"
                   />
                 </CardContent>

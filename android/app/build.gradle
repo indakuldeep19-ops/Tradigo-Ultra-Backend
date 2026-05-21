@@ -19,6 +19,15 @@ android {
         }
     }
     
+signingConfigs {
+    release {
+        storeFile file("tradigo-key.jks")
+        storePassword "123456"
+        keyAlias "tradigo"
+        keyPassword "123456"
+    }
+}
+
     buildTypes {
         release {
             minifyEnabled false
@@ -39,6 +48,7 @@ repositories {
 }
 
 dependencies {
+    implementation "androidx.core:core-splashscreen:1.0.1"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$rootProject.ext.androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$rootProject.ext.androidxCoordinatorLayoutVersion"
@@ -56,4 +66,23 @@ try {
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied.")
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("tradigo-key.jks")
+            storePassword "123456"
+            keyAlias "tradigo"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
 }

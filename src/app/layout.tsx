@@ -1,11 +1,10 @@
-import type {Metadata} from 'next';
 import './globals.css';
 import { CurrencyProvider } from '@/context/currency-context';
 import { FirebaseProvider } from '@/firebase/provider';
 import Script from 'next/script';
 import { Toaster } from '@/components/ui/toaster';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Tradigo Prime | Quantum AI Trading',
   description: 'Experience futuristic luxury social trading with AI-powered insights, real-time quantum analytics, and premium neon vibes.',
 };

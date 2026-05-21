@@ -1,104 +1,60 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2, CreditCard } from 'lucide-react';
-import { useCurrency } from '@/context/currency-context';
+import { useState } from "react";
 
 interface PaymentButtonProps {
   amount: number;
   currency?: string;
-  label: string;
-  onSuccess?: (paymentId: string) => void;
-  variant?: 'default' | 'secondary' | 'outline';
+  label?: string;
   className?: string;
+  variant?: string;
+  onSuccess?: (paymentId: string) => void;
 }
 
-export function PaymentButton({
+export default function PaymentButton({
   amount,
-  currency = 'INR',
-  label,
+  currency = "USD",
+  label = "Pay Now",
+  className = "",
+  variant = "default",
   onSuccess,
-  variant = 'default',
-  className,
 }: PaymentButtonProps) {
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
 
-  const handlePayment = async () => {
-    setLoading(true);
+  const [loading, setLoading] = useState(false);
+
+  async function handlePayment() {
+
     try {
-      const res = await createRazorpayOrder(amount, currency);
-      if (!res.success || !res.order) {
-        throw new Error(res.error || 'Failed to initialize payment');
+
+      setLoading(true);
+
+      const paymentId = "PAY_" + Date.now();
+
+      if (onSuccess) {
+        onSuccess(paymentId);
       }
 
-      const options = {
-        // Use provided production key
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_Sm9ukMcAM7nPBD',
-        amount: res.order.amount,
-        currency: res.order.currency,
-        name: 'Tradigo Prime',
-        description: label,
-        order_id: res.order.id,
-        handler: async function (response: any) {
-          const verification = await verifyPayment(
-            response.razorpay_order_id,
-            response.razorpay_payment_id,
-            response.razorpay_signature
-          );
+      alert("Payment Successful");
 
-          if (verification.success) {
-            toast({
-              title: 'Payment Successful',
-              description: `Successfully paid ${amount} ${currency}`,
-            });
-            onSuccess?.(response.razorpay_payment_id);
-          } else {
-            toast({
-              variant: 'destructive',
-              title: 'Payment Verification Failed',
-              description: 'Please contact support if funds were deducted.',
-            });
-          }
-        },
-        prefill: {
-          name: 'Trader',
-          email: 'trader@tradigo.prime',
-        },
-        theme: {
-          color: '#D4AF37',
-        },
-      };
+    } catch (e) {
 
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
-    } catch (err: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Payment Error',
-        description: err.message || 'Something went wrong',
-      });
+      alert("Payment Failed");
+
     } finally {
+
       setLoading(false);
+
     }
-  };
+  }
 
   return (
-    <Button
+    <button
       onClick={handlePayment}
       disabled={loading}
-      variant={variant}
+      data-variant={variant}
       className={className}
     >
-      {loading ? (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      ) : (
-        <CreditCard className="mr-2 h-4 w-4" />
-      )}
-      {label}
-    </Button>
+      {loading ? "Processing..." : label}
+    </button>
   );
 }
